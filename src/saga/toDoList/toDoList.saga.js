@@ -4,10 +4,11 @@ import * as Types from './toDoList.type';
 import * as Actions from './toDoList.action';
 import API from './toDoList.api';
 
-function* fetchSaga({ params }) {
+function* fetchSaga() {
+  console.log('=======> check Data');
   try {
-    const response = yield call(API.fetch, params);
-
+    const response = yield call(API.fetch);
+    console.log(response);
     if (response) {
       yield put(Actions.fetchSuccess(response));
     }
@@ -66,19 +67,28 @@ function* patchSaga({ params }) {
     } else {
       response = yield call(API.post, params);
     }
+    console.log('=========> response', response);
 
     if (response) {
-      yield put(Actions.patchSuccess(response));
-      // callback();
+      console.log('=========> response');
+
+      yield put(Actions.patchSuccess());
+      console.log('=========> response1');
+
+      // yield put(Actions.fetchRequest());
+      // console.log('=========> response2');
     }
   } catch (error) {
-    const { data, status } = error.response;
-    yield put(
-      Actions.patchFailure({
-        status: status || error?.status,
-        statusText: data || error?.statusText,
-      }),
-    );
+    console.log('=========> catch Err', JSON.stringify(error));
+
+    // if (error.response === undefined) return;
+    yield put(Actions.fetchFailure(error));
+    // yield put(
+    //   Actions.patchFailure({
+    //     status: status || error?.status,
+    //     statusText: data || error?.statusText,
+    //   }),
+    // );
   }
 }
 

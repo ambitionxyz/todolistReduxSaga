@@ -1,8 +1,8 @@
 import Axios from '../../services/';
 
 const HOME_API = {
-  fetch: async params => {
-    return await Axios.get(`/item`, { params });
+  fetch: async () => {
+    return await Axios.get(`/item`);
   },
   get: async id => {
     return await Axios.get(`/item/${id}`);

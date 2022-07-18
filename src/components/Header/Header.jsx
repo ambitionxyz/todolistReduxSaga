@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import React from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { patchRequest } from '../../saga/toDoList/toDoList.action';
 import { Button, Form, Input } from 'antd';
 import 'antd/dist/antd.css';
@@ -9,10 +9,11 @@ import { Axios } from 'axios';
 
 const Header = () => {
   const dispatch = useDispatch();
-  const onFinish = async values => {
+  const isAddSuccess = useSelector(state => state.isAddSuccess);
+  const onFinish = values => {
     // const job = { id: Math.random().toString(), job: values };
     // console.log('cong viec duoc them ', job);
-    await dispatch(patchRequest(values));
+    dispatch(patchRequest(values));
   };
 
   const onFinishFailed = errorInfo => {

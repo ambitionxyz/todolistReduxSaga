@@ -6,6 +6,7 @@ const initialState = {
   totalPages: 0,
   loading: false,
   error: null,
+  isAddSuccess: false,
 };
 
 const toDoListReducer = (state = initialState, action) => {
@@ -16,10 +17,11 @@ const toDoListReducer = (state = initialState, action) => {
       return { ...state, loading: true };
     }
     case Types.FETCH_SUCCESS: {
-      // console.log('them thanh cong', action.payload);
+      // console.log('thanh cong', action.payload);
+
       return {
         ...state,
-        list: action?.payload ? action?.payload?.reverse() : [],
+        list: action?.payload?.reverse() || [],
         totalPages: action?.payload?.length ? Math.ceil(action?.payload?.length / 10) : 0,
         loading: false,
       };
@@ -40,10 +42,16 @@ const toDoListReducer = (state = initialState, action) => {
 
     // PUT / POST
     case Types.PATCH_REQUEST: {
-      return { ...state, loading: true };
+      return { ...state, loading: true, isAddSuccess: false };
     }
     case Types.PATCH_SUCCESS: {
-      return { ...state, loading: false };
+      console.log('patch success');
+      return {
+        ...state,
+        isAddSuccess: true,
+      };
+
+      // return { ...state, loading: false };
     }
     case Types.PATCH_FAILURE: {
       return { ...state, loading: false, error: action.error };

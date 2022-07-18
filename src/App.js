@@ -10,11 +10,11 @@ import ListJob from './components/ListJob/ListJob';
 const App = () => {
   return (
     <React.Fragment>
-      <Row>
-        <Col span={24}>
-          <h1>To do list</h1>
-        </Col>
-      </Row>
+      {/* <Row>
+        <Col span={24}> */}
+      <h1>To do list</h1>
+      {/* </Col>
+      </Row> */}
       <Row>
         <Col span={24}>
           <Header />

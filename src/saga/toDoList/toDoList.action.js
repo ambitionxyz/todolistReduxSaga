@@ -1,6 +1,6 @@
 import * as Types from './toDoList.type';
 
-export const fetchRequest = params => ({ type: Types.FETCH_REQUEST, params });
+export const fetchRequest = () => ({ type: Types.FETCH_REQUEST });
 export const fetchSuccess = payload => ({ type: Types.FETCH_SUCCESS, payload });
 export const fetchFailure = error => ({ type: Types.FETCH_FAILURE, error });
 
@@ -8,8 +8,8 @@ export const fetchFailure = error => ({ type: Types.FETCH_FAILURE, error });
 // export const putSuccess = payload => ({ type: Types.PUT_SUCCESS, payload });
 // export const putFailure = error => ({ type: Types.PUT_FAILURE, error });
 
-export const patchRequest = (params, callback) => ({ type: Types.PATCH_REQUEST, params, callback });
-export const patchSuccess = payload => ({ type: Types.PATCH_SUCCESS, payload });
+export const patchRequest = params => ({ type: Types.PATCH_REQUEST, params });
+export const patchSuccess = () => ({ type: Types.PATCH_SUCCESS });
 export const patchFailure = error => ({ type: Types.PATCH_FAILURE, error });
 
 export const getRequest = params => ({ type: Types.GET_REQUEST, params });
