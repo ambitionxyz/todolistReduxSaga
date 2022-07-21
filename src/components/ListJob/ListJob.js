@@ -1,23 +1,27 @@
+/* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { fetchRequest } from '../../saga/toDoList/toDoList.action';
-
+import { deleteRequest } from '../../saga/toDoList/toDoList.action';
 import { Divider, List, Button, Col, Row } from 'antd';
 import { EditOutlined, CloseOutlined } from '@ant-design/icons';
 import 'antd/dist/antd.css';
 
 import classes from './ListJob.module.css';
+import ColumnGroup from 'antd/lib/table/ColumnGroup';
 /////////////////////
 // const data = ['cong viec 1', 'cong viec 2'];
 
 const ListJob = () => {
   // eslint-disable-next-line no-unused-vars
-  const [isFetch, setIsFetch] = useState(false);
+  const [valueDelete, setValueDelete] = useState(false);
+  const [valueEdit, setValueEdit] = useState();
   const dispatch = useDispatch();
   const dataSource = useSelector(state => state.toDoListReducer);
   const { list, loading, isAddSuccess } = dataSource;
   // const loading = useSelector(state => state.toDoListReducer.loading);
-  console.log('==========> dataSource', dataSource);
+  // console.log('==========> dataSource', dataSource);
 
   useEffect(() => {
     dispatch(fetchRequest());
@@ -28,9 +32,15 @@ const ListJob = () => {
       dispatch(fetchRequest());
     }
   }, [isAddSuccess]);
+
+  useEffect(() => {
+    dispatch(deleteRequest(valueDelete));
+    // dispatch(fetchRequest());
+  }, [valueDelete]);
+
   ///////////////
   return (
-    <React.Fragment>
+    <div className={classes.list}>
       <Divider orientation="center">to do list</Divider>
       {!loading && (
         <List
@@ -40,16 +50,21 @@ const ListJob = () => {
           bordered
           dataSource={list}
           renderItem={item => (
-            <List.Item>
+            <List.Item className={classes.item}>
               <Row>
                 <Col span={24}>{item.job}</Col>
               </Row>
               <Row>
                 <Col span={16}>
-                  <Button className={classes.Button} type="primary">
+                  <Link to={`/all-list/${item.id}`} className={classes.button}>
                     <EditOutlined />
-                  </Button>
-                  <Button type="primary">
+                  </Link>
+                  <Button
+                    type="primary"
+                    onClick={() => {
+                      setValueDelete(item.id);
+                    }}
+                  >
                     <CloseOutlined />
                   </Button>
                 </Col>
@@ -59,7 +74,7 @@ const ListJob = () => {
         />
       )}
       {loading && <p>loading...</p>}
-    </React.Fragment>
+    </div>
   );
 };
 

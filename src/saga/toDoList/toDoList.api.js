@@ -13,8 +13,9 @@ const HOME_API = {
     return await Axios.post(`/item`, { ...data });
   },
   put: async payload => {
-    console.log(payload);
+    console.log('put api', payload);
     const { id, ...job } = payload;
+    // console.log('trong put', id, job);
     return await Axios.put(`/item/${id}`, { ...job });
   },
   delete: async id => {

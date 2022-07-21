@@ -2,18 +2,22 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { patchRequest } from '../../saga/toDoList/toDoList.action';
 import { Button, Form, Input } from 'antd';
 import 'antd/dist/antd.css';
 import { Axios } from 'axios';
 
-const Header = () => {
+const HeaderMain = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const isAddSuccess = useSelector(state => state.isAddSuccess);
   const onFinish = values => {
     // const job = { id: Math.random().toString(), job: values };
     // console.log('cong viec duoc them ', job);
+    console.log('nap du lieu len API ', values);
     dispatch(patchRequest(values));
+    navigate('/all-list', { push: true });
   };
 
   const onFinishFailed = errorInfo => {
@@ -34,7 +38,7 @@ const Header = () => {
       autoComplete="off"
     >
       <Form.Item
-        label="To do"
+        label="Cong viec"
         name="job"
         rules={[
           {
@@ -60,4 +64,4 @@ const Header = () => {
   );
 };
 
-export default Header;
+export default HeaderMain;

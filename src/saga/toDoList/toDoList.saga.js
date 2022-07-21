@@ -5,10 +5,10 @@ import * as Actions from './toDoList.action';
 import API from './toDoList.api';
 
 function* fetchSaga() {
-  console.log('=======> check Data');
+  // console.log('=======> check Data');
   try {
     const response = yield call(API.fetch);
-    console.log(response);
+    // console.log(response);
     if (response) {
       yield put(Actions.fetchSuccess(response));
     }
@@ -42,6 +42,7 @@ function* getSaga({ params }) {
 
 function* deleteSaga({ params }) {
   try {
+    console.log('delete', params);
     const response = yield call(API.delete, params);
     if (response) {
       yield put(Actions.deleteSuccess(response));
@@ -59,7 +60,7 @@ function* deleteSaga({ params }) {
 }
 function* patchSaga({ params }) {
   // function* patchSaga({ params, callback }) {
-  console.log(params);
+  console.log('=================>patch saga', params);
   try {
     let response = null;
     if (params?.id) {

@@ -8,7 +8,10 @@ export const fetchFailure = error => ({ type: Types.FETCH_FAILURE, error });
 // export const putSuccess = payload => ({ type: Types.PUT_SUCCESS, payload });
 // export const putFailure = error => ({ type: Types.PUT_FAILURE, error });
 
-export const patchRequest = params => ({ type: Types.PATCH_REQUEST, params });
+export const patchRequest = params => {
+  //   console.log('param===============> ', params);
+  return { type: Types.PATCH_REQUEST, params };
+};
 export const patchSuccess = () => ({ type: Types.PATCH_SUCCESS });
 export const patchFailure = error => ({ type: Types.PATCH_FAILURE, error });
 
